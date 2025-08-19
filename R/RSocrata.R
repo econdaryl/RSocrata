@@ -359,7 +359,7 @@ read.socrata <- function(url, app_token = NULL, email = NULL, password = NULL,
   # if no limit $provided, loop until all data is paged
   while (nrow(page) > 0 & !limitProvided) { 
     query <- paste(validUrl, if(is.null(parsedUrl$query)) {'?'} else {"&"}, 
-                   '$limit=1000&$offset=', nrow(result), sep='')
+                   '$offset=1000', nrow(result), sep='')
     response <- getResponse(query, email, password)
     page <- getContentAsDataFrame(response)
     result <- rbind.fill(result, page) # accumulate
