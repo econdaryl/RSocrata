@@ -14,7 +14,7 @@
 #' @param s - a string
 #' @return None (invisible NULL) as per cat
 #' @author Hugh J. Devlin \email{Hugh.Devlin@@cityofchicago.org}
-#' @noRd
+#' @export
 logMsg <- function(s) {
   cat(format(Sys.time(), "%Y-%m-%d %H:%M:%OS3 "), as.character(sys.call(-1))[1], ": ", s, '\n', sep='')
 }
@@ -27,7 +27,7 @@ logMsg <- function(s) {
 #' @return a string
 #' @importFrom utils packageVersion
 #' @author Tom Schenk Jr \email{tom.schenk@@cityofchicago.org}
-#' @noRd
+#' @export
 fetch_user_agent <- function() {
   rSocrataVersion <- packageVersion("RSocrata")
   operatingSystem <- Sys.info()[["sysname"]]
@@ -190,7 +190,7 @@ posixify <- function(x) {
 #' @param x - a factor of Money fields
 #' @return a number
 #' @author Tom Schenk Jr \email{tom.schenk@@cityofchicago.org}
-#' @noRd
+#' @export
 no_deniro <- function(x) {
   x <- sub("\\$", "", x)
   x <- as.numeric(x)
@@ -206,7 +206,7 @@ no_deniro <- function(x) {
 #' @return httr response object
 #' @importFrom httr http_status GET content stop_for_status user_agent
 #' @author Hugh J. Devlin, Ph. D. \email{Hugh.Devlin@@cityofchicago.org}
-#' @noRd
+#' @export
 getResponse <- function(url, email = NULL, password = NULL) {
   
   if(is.null(email) && is.null(password)){
@@ -238,7 +238,7 @@ getResponse <- function(url, email = NULL, password = NULL) {
 #' @importFrom utils read.csv
 #' @param response - an httr response object
 #' @return data frame, possibly empty
-#' @noRd
+#' @export
 getContentAsDataFrame <- function(response) { UseMethod('response') }
 getContentAsDataFrame <- function(response) {
   mimeType <- response$header$'content-type'
@@ -271,7 +271,7 @@ getContentAsDataFrame <- function(response) {
 #' @param response - headers attribute from an httr response object
 #' @return a named vector mapping field names to data types
 #' @importFrom jsonlite fromJSON
-#' @noRd
+#' @export
 getSodaTypes <- function(response) { UseMethod('response') }
 getSodaTypes <- function(response) {
   dataTypes <- response$headers[['x-soda2-types']]
@@ -429,7 +429,7 @@ ls.socrata <- function(url) {
 #' @return httr a response object
 #' @importFrom httr GET POST PUT authenticate user_agent add_headers
 #' 
-#' @noRd
+#' @export
 checkUpdateResponse <- function(json_data_to_upload, url, http_verb, email, password, app_token = NULL) {
   if(http_verb == "POST"){
     response <- httr::POST(url,
